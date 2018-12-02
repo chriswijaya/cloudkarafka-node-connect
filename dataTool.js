@@ -108,10 +108,43 @@ var generateDetailsDataSet = async ( uniqueUsers = 5, maxRecordsPerUser = 8 ) =>
 }
 
 // Summary data aggregator -------------------------
-// TODO
+function sumMessage( summary, message ) {
+  var userId;
+  var userActionTs;
+  var newSummary = summary;
+
+  // Validation
+  if( message ) {
+    if( message.userId ) userId = message.userId;
+    else return; // Nothing to do when userId is not defined
+    
+    if( message.Metadata && message.Metadata.timestamp ) userActionTs = message.Metadata.timestamp;
+    else return; // Nothing to do when user action timestamp is not defined
+  }
+  else return; // Nothing to do when message is not defined
+
+  // Update record in summary for existing records
+  if( userId in newSummary ) {
+    const firstSeen = newSummary[ userId ].firstSeen;
+    const lastSeen = newSummary[ userId ].lastSeen;
+
+    if( userActionTs < firstSeen ) newSummary[ userId ].firstSeen = userActionTs;
+    if( userActionTs > lastSeen ) newSummary[ userId ].lastSeen = userActionTs;
+  }
+  else {    // Add record to summary for new records
+    newSummary[ userId ] = {
+      userId: userId,
+      firstSeen: userActionTs,
+      lastSeen: userActionTs
+    }
+  }
+
+  return newSummary;
+}
 
 
 module.exports = {
   generateRandomId: generateRandomId,
-  generateDetailsDataSet: generateDetailsDataSet
+  generateDetailsDataSet: generateDetailsDataSet,
+  sumMessage: sumMessage
 }

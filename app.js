@@ -11,8 +11,10 @@ const kafkaCon = require("./kafkaCon");
 
 // Globals
 var env = "";
-const uniqueUserId = 2;
+const uniqueUsers = 2;
 const maxRecordsPerUser = 3;
+var kafkaDetailProdCon;
+var kafkaDetailConsCon;
 
 // Check and set environment
 if( process.argv[2] ) {
@@ -25,22 +27,28 @@ else {
   helper.printError( `Specify environment for the app to start. E.g.: node app.js <environment>`, true );
 }
 
-// TODO:
-// Read and summarise data set on the go
-// Write generated data set to kafka-summary
-
 // Main entry point
-dataTool.generateDetailsDataSet( 2, 3 )   // Generate data set
+dataTool.generateDetailsDataSet( uniqueUsers, maxRecordsPerUser )   // Generate data set
 .then( ds => { 
   helper.printLog( `Generating detail messages.` );
-  // console.log( ds );
 
-  const kafkaDetailProdCon = new kafkaCon( config.development.kafka );
-  kafkaDetailProdCon.produceMessages( 'other' , ds );
+  // Produce generated messages to kafka detail topic
+  kafkaDetailProdCon = new kafkaCon( config[ env ].kafka );
+  kafkaDetailProdCon.produceMessages( 'detail' , ds );
 
-  const kafkaDetailConsCon = new kafkaCon( config.development.kafka );
-  kafkaDetailConsCon.consumeMessages( 'other' );
+  // Produce statistics to kafka summary topic from consumed messages in kafka detail topic
+  kafkaDetailConsCon = new kafkaCon( config[ env ].kafka );
+  kafkaDetailConsCon.consumeMessagesAndProduceStats( 'detail', 'summary' );
 })
 .catch( (error) => {
   console.log("THERE IS ERROR:\n" + JSON.stringify(error));
 });
+
+// Trigger disconnect event on kafkaCon.consumeMessagesAndProduceStats
+// This will produce statistical messages to Kafka
+function exitHandler() {
+  if( kafkaDetailConsCon && kafkaDetailConsCon.consumer) kafkaDetailConsCon.consumer.disconnect();
+}
+
+process.on( 'exit', exitHandler );
+process.on( 'SIGINT', exitHandler );

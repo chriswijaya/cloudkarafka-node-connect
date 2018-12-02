@@ -18,29 +18,32 @@
       },
       "consumer": {
         "group-id": "dev-kafka",
-        "detail-topics": ["pceiehl5-default"],
-        "summary-topics" : ["pceiehl5-default"],
+        "detail-topics": ["pceiehl5-detail"],
+        "summary-topics" : ["pceiehl5-summary"],
         "other-topics": ["pceiehl5-default"]
       }
     }
   },
   "live": {
     "kafka": {
-      "brokers": [],
+      "brokers": [
+        "velomobile-01.srvs.cloudkafka.com:9094",
+        "velomobile-02.srvs.cloudkafka.com:9094",
+        "velomobile-03.srvs.cloudkafka.com:9094"
+      ],
       "security-protocol": "SASL_SSL",
       "sasl-mechanisms": "SCRAM-SHA-256",
-      "sasl-username": "pceiehl5",
-      "sasl-password": "kFVCcnzwrpb99hv2wnO5yR-hrccsS7R1",
-      "group-id": "live-kafka",
+      "sasl-username": "288jgwj2",
+      "sasl-password": "3-BW45B_GAqnPZEmfvsO3Lgj5UBBkcNg",
       "producer": {
-        "detail-topic": "pceiehl5-default",
-        "summary-topic" : "pceiehl5-default",
-        "other-topic": "pceiehl5-default"
+        "group-id": "dev-kafka",
+        "detail-topic": "288jgwj2-christywijaya-detail",
+        "summary-topic" : "288jgwj2-christywijaya-summary"
       },
       "consumer": {
-        "detail-topics": ["pceiehl5-default"],
-        "summary-topics" : ["pceiehl5-default"],
-        "other-topics": ["pceiehl5-default"]
+        "group-id": "dev-kafka",
+        "detail-topics": ["288jgwj2-christywijaya-detail"],
+        "summary-topics" : ["288jgwj2-christywijaya-summary"]
       }
     }
   }
