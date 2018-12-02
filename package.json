@@ -1,0 +1,28 @@
+{
+  "name": "cloudkarafka-node-connect",
+  "version": "1.0.0",
+  "description": "Node JS connection to cloudkarafka with data aggregator",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js live",
+    "test": "node app.js development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chriswijaya/cloudkarafka-node-connect.git"
+  },
+  "keywords": [
+    "nodejs",
+    "kafka",
+    "cloudkarafka"
+  ],
+  "author": "Chris Wijaya",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chriswijaya/cloudkarafka-node-connect/issues"
+  },
+  "dependencies": {
+    "node-rdkafka": "^2.4.2"
+  },
+  "homepage": "https://github.com/chriswijaya/cloudkarafka-node-connect#readme"
+}

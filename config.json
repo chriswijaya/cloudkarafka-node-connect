@@ -1,0 +1,34 @@
+{
+  "development": {
+    "kafka": {
+      "brokers": [],
+      "security-protocol": "SASL_SSL",
+      "sasl-mechanisms": "SCRAM-SHA-256",
+      "sasl-username": "pceiehl5",
+      "sasl-password": "kFVCcnzwrpb99hv2wnO5yR-hrccsS7R1",
+      "group-id": "dev-kafka",
+      "producer": {
+        "topic": "pceiehl5-default"
+      },
+      "consumer:": {
+        "topics": ["pceiehl5-default"]
+      }
+    }
+  },
+  "live": {
+    "kafka": {
+      "brokers": [],
+      "security-protocol": "SASL_SSL",
+      "sasl-mechanisms": "SCRAM-SHA-256",
+      "sasl-username": "pceiehl5",
+      "sasl-password": "kFVCcnzwrpb99hv2wnO5yR-hrccsS7R1",
+      "group-id": "live-kafka",
+      "producer": {
+        "topic": "pceiehl5-default"
+      },
+      "consumer:": {
+        "topics": ["pceiehl5-default"]
+      }
+    }
+  }
+}
