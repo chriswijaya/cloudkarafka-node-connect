@@ -4,17 +4,15 @@
   Description: Main module for cloudkarafka connection
 */
 
-// External mods
-// var kafka = require("node-rdkafka");
-
-// Internal mods
 const dataTool = require('./dataTool');
 const config = require("./config.json");
 const helper = require("./helper");
+const kafkaCon = require("./kafkaCon");
 
 // Globals
 var env = "";
-var dataSet;
+const uniqueUserId = 2;
+const maxRecordsPerUser = 3;
 
 // Check and set environment
 if( process.argv[2] ) {
@@ -28,14 +26,21 @@ else {
 }
 
 // TODO:
-// Generate data set
-// Write generated data set to kafka-details
 // Read and summarise data set on the go
 // Write generated data set to kafka-summary
 
-// Starts here ---------------
-dataTool.generateDetailsDataSet( 2, 3 )
-.then( ds => {
+// Main entry point
+dataTool.generateDetailsDataSet( 2, 3 )   // Generate data set
+.then( ds => { 
   helper.printLog( `Generating detail messages.` );
-  //console.log( ds );
+  // console.log( ds );
+
+  const kafkaDetailProdCon = new kafkaCon( config.development.kafka );
+  kafkaDetailProdCon.produceMessages( 'other' , ds );
+
+  const kafkaDetailConsCon = new kafkaCon( config.development.kafka );
+  kafkaDetailConsCon.consumeMessages( 'other' );
+})
+.catch( (error) => {
+  console.log("THERE IS ERROR:\n" + JSON.stringify(error));
 });
