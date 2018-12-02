@@ -14,9 +14,7 @@ const helper = require("./helper");
 
 // Globals
 var env = "";
-
-
-// Starts here ---------------
+var dataSet;
 
 // Check and set environment
 if( process.argv[2] ) {
@@ -35,5 +33,9 @@ else {
 // Read and summarise data set on the go
 // Write generated data set to kafka-summary
 
-const x = { name: 'chris'};
-console.log(x);
+// Starts here ---------------
+dataTool.generateDetailsDataSet( 2, 3 )
+.then( ds => {
+  helper.printLog( `Generating detail messages.` );
+  //console.log( ds );
+});

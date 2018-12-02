@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js live",
-    "test": "node app.js development"
+    "test": "node app.js development",
+    "build": "npm install"
   },
   "repository": {
     "type": "git",
