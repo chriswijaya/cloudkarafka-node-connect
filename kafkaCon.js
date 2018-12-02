@@ -59,7 +59,7 @@ kafkaCon.prototype.produceMessages = function produceMessages( destTopic, messag
       producer.produce(topic, -1, Buffer.from( JSON.stringify( messages[i] ) ), i);
     }
 
-    helper.printLog( `Written ${ messages.length } to kafka.`)
+    helper.printLog( `Written ${ messages.length } messages to kafka.`)
     setTimeout( () => producer.disconnect(), 0 );
   });
 

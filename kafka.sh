@@ -17,4 +17,4 @@ LIVEPASSWORD=3-BW45B_GAqnPZEmfvsO3Lgj5UBBkcNg
 LIVETOPIC=288jgwj2-christywijaya-summary
 
 # Consumer from live 
-kafkacat -b $LIVEBROKERS -C -X security.protocol=SASL_SSL -X sasl.mechanisms=SCRAM-SHA-256 -X sasl.username=$LIVEUSERNAME -X sasl.password=$LIVEPASSWORD -t $LIVETOPIC -v -X debug=generic,broker,security
+kafkacat -b $LIVEBROKERS -C -X security.protocol=SASL_SSL -X sasl.mechanisms=SCRAM-SHA-256 -X sasl.username=$LIVEUSERNAME -X sasl.password=$LIVEPASSWORD -t $LIVETOPIC #-v -X debug=generic,broker,security

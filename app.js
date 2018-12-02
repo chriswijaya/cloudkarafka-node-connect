@@ -11,8 +11,8 @@ const kafkaCon = require("./kafkaCon");
 
 // Globals
 var env = "";
-const uniqueUsers = 2;
-const maxRecordsPerUser = 3;
+const uniqueUsers = 5;
+const maxRecordsPerUser = 12;
 var kafkaDetailProdCon;
 var kafkaDetailConsCon;
 
